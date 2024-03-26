@@ -1,0 +1,8 @@
+<button (click)="updateUser()">Update</button>
+<div *ngIf="isChildDestroyed">Child component is destroyed!</div>
+<br />
+<br />
+<app-child *ngIf="!isChildDestroyed" [userName]='userName'>
+  <div #contentWrapper>foo</div>
+</app-child>
+<button (click)="destroy()">Destroy Child</button>
