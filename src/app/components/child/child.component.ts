@@ -1,11 +1,11 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ContentChild, DoCheck, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-child',
   templateUrl: './child.component.html',
   styleUrl: './child.component.scss'
 })
-export class ChildComponent implements OnChanges, AfterContentInit, OnDestroy {
+export class ChildComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked  {
   @Input() userName = "";
   @ViewChild('wrapper') wrapper!: ElementRef;
   @ContentChild('contentWrapper') content!: ElementRef;
@@ -21,13 +21,28 @@ export class ChildComponent implements OnChanges, AfterContentInit, OnDestroy {
       }
     }
   }
-
+  
+  ngOnInit(): void {
+    console.log('ngOnInit from the child component');
+  }
+  ngDoCheck(): void {
+    console.log('ngDoCheck triggered');
+  }
   ngAfterContentInit(): void {
     console.log('ngAfterContentInit - wrapper', this.wrapper);
     console.log('ngAfterContentInit - contentWrapper', this.content);
   }
-  
-  ngOnDestroy(): void {
-    console.log('Child component is destroyed! :(');
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked triggered');
   }
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit - wrapper', this.wrapper);
+  }
+  ngAfterViewChecked(): void {
+     console.log('ngAfterViewChecked triggered');
+  }
+  
+  // ngOnDestroy(): void {
+    //   console.log('Child component is destroyed! :(');
+  // }
 }
